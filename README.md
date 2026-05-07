@@ -2,235 +2,146 @@
 
 ## Autor
 
-- **Nombre:** Jhoseth Esneider Rozo Carrillo
-- **Codigo:** 02230131027
-- **Programa:** Ingenieria de Sistemas
-- **Unidad:** 9: Testing y Aseguramiento de Calidad en Móvil
-- **Actividad:** Post-Contenido 1
-- **Fecha:** 06/05/2026
+- **Nombre:** Miguel Angel Rizo Arias  
+- **Programa:** Ingeniería de Sistemas  
+- **Unidad:** 9 — Testing y Aseguramiento de Calidad en Aplicaciones Móviles  
+- **Actividad:** Post-Contenido 1  
+- **Fecha:** 06/05/2026  
 
 ---
 
-## Descripcion del Proyecto
+## Descripción del Proyecto
 
-Este proyecto aplica el ciclo Red-Green-Refactor de TDD para construir un ViewModel de Android testeado desde el primer commit. Se utiliza MockK para aislar dependencias de repositorio y dispatcher, y se escriben tests que cubren el camino feliz, errores de red y estados de carga.
+Este proyecto fue desarrollado aplicando la metodología TDD (Test Driven Development) mediante el ciclo **Red → Green → Refactor** para construir un `CartViewModel` en Android usando Kotlin.
 
----
+El propósito principal fue implementar pruebas unitarias desde el inicio del desarrollo para validar el comportamiento del ViewModel en diferentes escenarios, como carga de productos, cálculo del total, manejo de errores y transición de estados.
 
-# Objetivo
-
-Aplicar el ciclo **TDD (Test Driven Development)** utilizando la estrategia **Red → Green → Refactor** para desarrollar un `CartViewModel` en Android con Kotlin.
-
-El proyecto implementa pruebas unitarias usando:
-
-- JUnit5
-- MockK
-- Turbine
-- kotlinx-coroutines-test
-
-Además, se validan escenarios de:
-
-- carga correcta del carrito
-- manejo de errores de red
-- transición de estados Loading → Success
+Para las pruebas se utilizaron herramientas como MockK, Turbine y Kotlin Coroutines Test, permitiendo aislar dependencias y verificar correctamente el flujo de datos.
 
 ---
 
-### Ciclo TDD Aplicado
+## Objetivo
 
-1. **RED:** Se escribieron los tests antes de la implementación. Al ejecutar los tests, estos fallaron, validando que el test es capaz de detectar la falta de funcionalidad.
-2. **GREEN:** Se realizó la implementación mínima necesaria en `CartViewModel` para que todos los tests pasaran (barra verde).
-3. **REFACTOR:** Se mejoró el código de producción utilizando `runCatching`, extrayendo lógica a funciones puras (`calculateTotal`) y mejorando el manejo de errores, asegurando que los tests siguieran pasando.
+Implementar un `CartViewModel` aplicando la metodología TDD en Android Studio con Kotlin, desarrollando pruebas unitarias que permitan validar el funcionamiento de la lógica del carrito de compras.
 
 ---
 
-## Tecnologias Utilizadas
+## Tecnologías Utilizadas
 
-- **Kotlin 1.9.22**: Lenguaje de programación
-- **Android Studio Hedgehog**: IDE
-- **JUnit 5**: Framework de pruebas unitarias
-- **MockK 1.13.9**: Librería de mocking
-- **Kotlin Coroutines Test**: Soporte para pruebas de corrutinas
-- **Turbine 1.1.0**: Librería para testear StateFlow/Flow
-- **Gradle 8.7**: Gestor de dependencias
+- Kotlin 1.9.22  
+- Android Studio Hedgehog  
+- JUnit 5  
+- MockK 1.13.9  
+- Turbine 1.1.0  
+- Kotlin Coroutines Test  
+- Gradle 8.7  
+
+---
+
+## Ciclo TDD Aplicado
+
+### RED
+
+En esta etapa se escribieron primero las pruebas unitarias antes de desarrollar la implementación del ViewModel.
+
+Los tests fallaron inicialmente debido a que todavía no existía la lógica necesaria, validando así que las pruebas estaban correctamente definidas.
+
+Se probaron escenarios como:
+
+- carga de productos  
+- cálculo del total  
+- manejo de errores  
+- cambio de estados  
+
+Resultado obtenido:
+
+```text
+3 tests completed, 3 failed
+```
+
+---
+
+### GREEN
+
+Después de tener las pruebas fallando, se desarrolló la implementación mínima necesaria para que todos los tests pasaran correctamente.
+
+Se agregó:
+
+- manejo de estados  
+- carga del carrito  
+- cálculo del total  
+- captura de excepciones  
+
+Resultado:
+
+```text
+BUILD SUCCESSFUL
+```
+
+---
+
+### REFACTOR
+
+Con todos los tests funcionando correctamente, se realizó una refactorización para mejorar la organización y legibilidad del código sin alterar su funcionamiento.
+
+Se aplicaron mejoras como:
+
+- extracción de funciones  
+- uso de `runCatching`  
+- validación de listas vacías  
+- limpieza del código  
+
+También se agregó una prueba adicional para validar escenarios límite.
 
 ---
 
 ## Estructura del Proyecto
 
-- app/src/main/java/com/universidad/red_green_refactor/
-- ├── domain/
-- │ ├── model/
-- │ │ └── CartItem.kt
-- │ └── repository/
-- │ └── CartRepository.kt
-- └── ui/
--     └── cart/
--         ├── CartUiState.kt
--         ├── CartViewModel.kt
--         └── AnalyticsService.kt
+```text
+app/src/main/java/com/universidad/red_green_refactor/
 
-- app/src/test/java/com/universidad/red_green_refactor/ui/cart/
-- └── CartViewModelTest.kt
+├── domain
+│   ├── model
+│   └── repository
+│
+└── ui
+    └── cart
+```
+
+### Pruebas Unitarias
+
+```text
+app/src/test/java/com/universidad/red_green_refactor/ui/cart/
+```
 
 ---
 
-## Instrucciones de Ejecucion
+## Ejecución de Tests
 
-### 1. Clonar el repositorio
-
-```bash
-git clone https://github.com/jerc31/rozo-post1_u9.git
-cd rozo-post1_u9
-```
-
-### 2. Ejecutar los tests desde la terminal
-
-En PowerShell o terminal de Android Studio:
+Ejecutar desde la terminal de Android Studio o PowerShell:
 
 ```bash
 ./gradlew :app:testDebugUnitTest
 ```
 
-### 3. Verificar resultados
-
-Al terminar la ejecución, se debe ver un mensaje similar a:
+Resultado esperado:
 
 ```text
-BUILD SUCCESSFUL in Xs
+BUILD SUCCESSFUL
 4 tests completed, 0 failed
 ```
 
 ---
 
-## Desarrollo usando TDD
+## Escenarios Validados
 
-### Fase RED — Tests primero
-
-En esta etapa se escribieron primero los tests antes de crear la implementación de CartViewModel.
-
-Se definieron:
-
-- contratos
-- modelos
-- estados UI
-- comportamiento esperado
-
-**Tests implementados**
-
-1. Success con total correcto
-
-Verifica que:
-
-- se carguen los productos
-- el total sea calculado correctamente
-
-@Test
-fun `loadCart emits Success state with items and total`() = runTest
-
-2. Error cuando el repositorio falla
-
-Verifica que:
-
-- si ocurre una excepción (IOException)
-- el ViewModel emita un estado Error
-
-@Test
-fun `loadCart emits Error when repository throws`() = runTest 3. Secuencia Loading → Success
-
-Verifica que:
-
-- primero se emita Loading
-- luego Success
-
-@Test
-fun `loadCart emits Loading before Success`() = runTest
-Resultado del checkpoint RED
-
-Se ejecutó:
-
-./gradlew :app:testDebugUnitTest
-
-Salida observada:
-
-3 tests completed, 3 failed
-
-Esto confirma correctamente la fase RED del ciclo TDD.
-
-### Fase GREEN — Implementación mínima
-
-En esta etapa se implementó el código mínimo necesario para hacer pasar todos los tests.
-
-**Implementación realizada**
-
-Se creó:
-
-- CartViewModel
-- manejo de estados
-- cálculo del total
-- captura de errores
-
-Se utilizó:
-
-- MutableStateFlow
-- viewModelScope
-- Coroutines
-- Resultado del checkpoint GREEN
-
-Se ejecutó:
-
-./gradlew :app:testDebugUnitTest
-
-Resultado:
-
-BUILD SUCCESSFUL
-
-Todos los tests pasaron correctamente.
-
-### Fase REFACTOR - Mejora del código
-
-Con los tests en verde, se realizó refactorización del código sin romper el comportamiento validado.
-
-**Mejoras aplicadas**
-
-- Extracción de calculateTotal() como función pura
-- Manejo específico de IOException
-- Uso de runCatching
-- Código más limpio y mantenible
-
-**Test adicional agregado**
-
-Se agregó un test adicional para validar:
-
-calculateTotal(emptyList()) == 0.0
-
-Esto permite validar correctamente casos límite.
+- carga correcta del carrito  
+- cálculo total de productos  
+- manejo de errores de red  
+- transición Loading → Success  
+- validación de listas vacías  
 
 ---
-
-## CHECKPOINTS DE VERIFICACION
-
-### Checkpoint 1 - Fase RED
-
-1. Los tests se definieron con el contrato de las interfaces.
-2. Fallaron inicialmente al no tener implementación en el ViewModel.
-3. Commit: `feat: Agrega tests RED para CartViewModel (TDD paso 1)`
-
-### Checkpoint 2 - Fase GREEN
-
-1. Implementación mínima en `CartViewModel.loadCart()`.
-2. Todos los tests pasaron (3 tests completados).
-3. Commit: `feat: Implementa CartViewModel GREEN — todos los tests pasan (TDD paso 2)`
-
-### Checkpoint 3 - Fase REFACTOR
-
-1. Refactorización usando `runCatching` y función pura `calculateTotal`.
-2. Adición de test para `calculateTotal(emptyList())`.
-3. Todos los tests (4) pasan correctamente.
-4. Commit: `refactor: Refactoriza CartViewModel (TDD paso 3)`
-
----
-
 ## Capturas de Resultados
 
 Las capturas se encuentran en la carpeta `/evidencias/`:
@@ -246,3 +157,7 @@ Las capturas se encuentran en la carpeta `/evidencias/`:
 ### Estado Refactor
 
 ![refactor](evidencias/captura_estado_refactor.png)
+
+## Conclusión
+
+Este proyecto permitió aplicar correctamente la metodología TDD en Android utilizando Kotlin y pruebas unitarias. Gracias al desarrollo guiado por pruebas fue posible validar el comportamiento del `CartViewModel` desde las primeras etapas, mejorando la calidad del código y facilitando su mantenimiento.
